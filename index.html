@@ -1,92 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Cription</title>
-    <!-- style css link for index page  -->
-      <link rel="stylesheet" href="main.css">
-      <!-- here we use font awsome script toolkit -->
-    <script
-    src="https://kit.fontawesome.com/74894dafb2.js"
-    crossorigin="anonymous"
-  ></script>
-    <!-- google font link for awsome text  -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&family=Montserrat&display=swap" rel="stylesheet">
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMDB Clone</title>
+  <link rel="stylesheet" href="movie.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+   <!-- FontAwesome -->
+   <script
+   src="https://kit.fontawesome.com/a8162db7fd.js"
+   crossorigin="anonymous"
+ ></script>
 </head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar bg-dark px-2 sticky-top">
+      <div class="container-fluid justify-content-start " style="height: 5rem;">
+        <a class="navbar-brand" href="index.html">
+          <span class="pt-4 site-name">
+            IMDB clone
+          </span>
+        </a>
 
-<!-- body section begins here -->
-<body>
-    <!-- this is the main container of website  -->
-    <section class="main">
-          <!-- navigation section html code which include logo(Menu) , searchBox , watchList(favorite movie list) , imbdPro(popup) section & signIn Imdb Functionality    -->
+        <!-- Search Bar-->
+        <div id="search-bar" class="mx-auto">
+          <form action="" autocomplete="off">
+            <input
+              type="search"
+              placeholder="Search "
+              id="search"
+              autocomplete="off"
+            />
+
+            <button id="search-btn">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            </button>
+          </form>
+        </div>
+
+        <div id="show-favourites"><i class="fa-solid fa-bars"></i></div>
+      </div>
+    </nav>
+
+    <div id="super-container" class="d-flex justify-content-between">
+      <!-- MAIN  SECTION-->
+      <main id="main-section">
+        <!-- Suggestions container-->
+        <div id="Suggestions-container" class="d-flex">
+          <p id="empty-search-text" class="text-muted fs-1 pt-5 ms-4">
+            Search any movie here!
+          </p>
+
+          <div id="card-container">
+          </div>
+        </div>
+      </main>
+
+      <!-- FAVORITES SECTION -->
+      <section id="favorites-section">
+        <h2>Favorites:</h2>
+
+        <div id="empty-fav-text">
+          <p class="fs-5 mx-3 text-muted center">
+            your <i class="fa-heart fa-solid text-muted"></i>  favorites here.
+          </p>
+        </div>
+
+        <div id="fav-movies-container" class=".flex-column mx-auto">
         
-         <nav class="nav-menu">
+        </div>
+      </section>
+    </div>
 
-             <!-- nav 1st child  -->
-             <!-- show menu Functionality is used for pull side menu  -->
-              <div class="logo-menu" onclick=showMenu()>
-                <div class="imdb-logo" id="i-logo">
-                     <img src="data:image/jpeg;base64,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" alt="imdb-logo">
-                </div>
-                
-              </div>
-                 <!-- nav second child  -->
-              <div class="search-box">
-                <input type="text" name="searchMovie" id="searchMovie" placeholder="Search movie here"
-                autocomplete="off">
-                <!-- <div id="search-icon"> <i class="fa-solid fa-magnifying-glass"></i></div> -->
-              </div>
-                 </div>
-<!-- --------------- -->
-                 <!-- 4th child  -->
-                
-                <h3 class="hover" id="signin"><a href="https://www.imdb.com/registration/signin?ref=nv_generic_lgin&u=%2F" target="_blank">
-                  <img src="https://th.bing.com/th?q=User+Avatar+Logo&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=1.5&pid=InlineBlock&mkt=en-IN&cc=IN&setlang=en&adlt=moderate&t=1&mw=247" alt="">
-                </a></h3>
-              </div>
-         </nav>
-            
-         
-
-
-       <!-- container for movie list coming from IMDB API here i access Api proprty and functionality and form dynamic Html Element that append here-->
-       <div id="movies">
-
-        <!-- <div class="movie-element">
-
-          <img src="https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Endgame_poster.jpg" alt="image-h">
-          <div class="movie-info">
-            <h3>Movie Title</h3>
-            <div class="star-fab">
-              <span class="yellow"><i class="fa-solid fa-plus"></i></span>
-              <span class="yellow"><i class="fa-solid fa-star">&nbsp;</i>9.8</span>
-            </div>
-          </div>
-          <div class="overview">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit laborum eos nobis nam, cupiditate ducimus optio? Nobis possimus debitis suscipit? Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, reprehenderit?
-          </div>
-
-        </div> -->
-
-
-       
-
-      </div>
-
-
-      <!-- button for next page and prev page  -->
-      <div class="page-navigate">
-        <button id="prev-page">Prev</button>
-        <button id="next-page">Next</button>
-      </div>
-         
-
-    </section>
-    <!-- external javascript for home page  -->
-   <script type="text/javascript" src="script.js"></script> 
-</body>
+    <script src="index.js"></script>
+  </body>
 </html>
